@@ -1,7 +1,7 @@
 <!-- @format -->
 
 Todo project :-- \
- the project was awesome
+ the project was awesome and crud operation performed in this application
 
 # Getting Started with Create React App
 
