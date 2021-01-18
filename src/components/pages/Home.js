@@ -14,15 +14,20 @@ const Home = () => {
 	const loadUsers = async () => {
 		const result = await axios.get('http://localhost:3002/users');
 		// console.log(result);
-		setUsers(result.data);
+		setUsers(result.data.reverse());
+	};
+
+	const deleteUser = async (id) => {
+		await axios.delete(`http://localhost:3002/users/${id}`);
+		loadUsers();
 	};
 
 	return (
 		<div className='container'>
 			<div className='py-4'>
 				<h1>Home Page</h1>
-				<table class='table border shadow'>
-					<thead class='table-dark'>
+				<table className='table border shadow'>
+					<thead className='table-dark'>
 						<tr>
 							<th scope='col'>#</th>
 							<th scope='col'>Name</th>
@@ -39,9 +44,21 @@ const Home = () => {
 								<td>{user.username}</td>
 								<td>{user.email}</td>
 								<td>
-									<Link class='btn btn-primary mr-2'>View</Link>
-									<Link class='btn btn-outline-primary mr-2'>Edit</Link>
-									<Link class='btn btn-danger mr-2'>Delete</Link>
+									<Link
+										className='btn btn-primary mr-2'
+										to={`/user/${user.id}`}>
+										View
+									</Link>
+									<Link
+										className='btn btn-outline-primary mr-2'
+										to={`/user/edit/${user.id}`}>
+										Edit
+									</Link>
+									<Link
+										className='btn btn-danger mr-2'
+										onClick={() => deleteUser(user.id)}>
+										Delete
+									</Link>
 								</td>
 							</tr>
 						))}
